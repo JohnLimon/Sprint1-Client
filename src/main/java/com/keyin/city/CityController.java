@@ -2,9 +2,7 @@ package com.keyin.city;
 
 
 import com.keyin.action.ActionService;
-import com.keyin.aircraft.Aircraft;
 import com.keyin.history.HistoryService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -14,12 +12,15 @@ import java.util.Map;
 @RestController
 @CrossOrigin
 public class CityController {
-    @Autowired
-    private CityService cityService;
-    @Autowired
-    private HistoryService historyService;
-    @Autowired
-    private ActionService actionService;
+    private final CityService cityService;
+    private final HistoryService historyService;
+    private final ActionService actionService;
+
+    public CityController(CityService cityService, HistoryService historyService, ActionService actionService) {
+        this.cityService = cityService;
+        this.historyService = historyService;
+        this.actionService = actionService;
+    }
 
     @GetMapping("/city")
     public List<City> getAllCity() {
@@ -29,7 +30,7 @@ public class CityController {
 
     @GetMapping("/city/{id}")
     public City getCityById(@PathVariable int id) {
-        String url = "/city/" + String.valueOf(id);
+        String url = "/city/" + id;
         historyService.addToHistory("getCityById()", url, LocalDateTime.now());
         return cityService.getCityById(id);
     }
@@ -56,11 +57,9 @@ public class CityController {
                 cityForAction = city;
             }
         }
-        if (cityForAction != null) {
-            actionService.addAction("city", "delete", Map.of("id", cityForAction.getId(), "name",  cityForAction.getName(), "province", cityForAction.getProvince(), "population", cityForAction.getPopulation()));
-        }
+        actionService.addAction("city", "delete", Map.of("id", cityForAction.getId(), "name", cityForAction.getName(), "province", cityForAction.getProvince(), "population", cityForAction.getPopulation()));
 
-        String url = "/city/deleteCity/" + String.valueOf(id);
+        String url = "/city/deleteCity/" + id;
         historyService.addToHistory("deleteCity()", url, LocalDateTime.now());
         return cityService.deleteCityById(id);
     }
@@ -74,12 +73,9 @@ public class CityController {
                 cityForAction = cityToFind;
             }
         }
-        if (cityForAction != null) {
-            actionService.addAction("city", "update", Map.of("id", cityForAction.getId(), "name",  cityForAction.getName(), "province", cityForAction.getProvince(), "population", cityForAction.getPopulation()));
+        actionService.addAction("city", "update", Map.of("id", cityForAction.getId(), "name", cityForAction.getName(), "province", cityForAction.getProvince(), "population", cityForAction.getPopulation()));
 
-        }
-
-        String url = "/city/updateCity/" + String.valueOf(id);
+        String url = "/city/updateCity/" + id;
         historyService.addToHistory("updateCity()", url, LocalDateTime.now());
         return cityService.updateCity(id, city);
     }

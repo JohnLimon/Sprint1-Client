@@ -8,7 +8,6 @@ import com.keyin.city.City;
 import com.keyin.city.CityService;
 import com.keyin.passenger.Passenger;
 import com.keyin.passenger.PassengerService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,17 +17,20 @@ import java.util.Stack;
 @Service
 public class ActionService {
 
-    private Stack<Action> actionStack = new Stack<>();
-    private Stack<Action> redoActionStack = new Stack<>();
+    private final Stack<Action> actionStack = new Stack<>();
+    private final Stack<Action> redoActionStack = new Stack<>();
 
-    @Autowired
-    private AircraftService aircraftService;
-    @Autowired
-    private AirportService airportService;
-    @Autowired
-    private CityService cityService;
-    @Autowired
-    private PassengerService passengerService;
+    private final AircraftService aircraftService;
+    private final AirportService airportService;
+    private final CityService cityService;
+    private final PassengerService passengerService;
+
+    public ActionService(AircraftService aircraftService, AirportService airportService, CityService cityService, PassengerService passengerService) {
+        this.aircraftService = aircraftService;
+        this.airportService = airportService;
+        this.cityService = cityService;
+        this.passengerService = passengerService;
+    }
 
     public void addAction(String objectName, String operation, Map<String, Object> theObject) {
         Action action = new Action(objectName, operation, theObject);
@@ -38,15 +40,15 @@ public class ActionService {
 
     public void undoAction() {
 
-        if(actionStack.size() > 0) {
+        if(!actionStack.isEmpty()) {
 
             switch (actionStack.peek().getObjectName()){
                 case "aircraft" :
-                    if (actionStack.peek().getOperation() == "create"){
+                    if (actionStack.peek().getOperation().equals("create")){
                         aircraftService.deleteAircraftById((Integer) actionStack.peek().getParameters().get("id"));
                         redoActionStack.push(actionStack.peek());
                         actionStack.pop();
-                    } else if (actionStack.peek().getOperation() == "delete"){
+                    } else if (actionStack.peek().getOperation().equals("delete")){
                         aircraftService.addAircraft(setAircraftFromActionStack());
                         redoActionStack.push(actionStack.peek());
                         actionStack.pop();
@@ -59,11 +61,11 @@ public class ActionService {
                     }
                     break;
                 case "airport":
-                    if (actionStack.peek().getOperation() == "create"){
+                    if (actionStack.peek().getOperation().equals("create")){
                         airportService.deleteAirportById((Integer) actionStack.peek().getParameters().get("id"));
                         redoActionStack.push(actionStack.peek());
                         actionStack.pop();
-                    } else if (actionStack.peek().getOperation() == "delete"){
+                    } else if (actionStack.peek().getOperation().equals("delete")){
                         airportService.addAirport(setAirportFromActionStack());
                         redoActionStack.push(actionStack.peek());
                         actionStack.pop();
@@ -76,11 +78,11 @@ public class ActionService {
                     }
                     break;
                 case "passenger":
-                    if (actionStack.peek().getOperation() == "create"){
+                    if (actionStack.peek().getOperation().equals("create")){
                         passengerService.deletePassengerById((Integer) actionStack.peek().getParameters().get("id"));
                         redoActionStack.push(actionStack.peek());
                         actionStack.pop();
-                    } else if (actionStack.peek().getOperation() == "delete"){
+                    } else if (actionStack.peek().getOperation().equals("delete")){
                         passengerService.addPassenger(setPassengerFromActionStack());
                         redoActionStack.push(actionStack.peek());
                         actionStack.pop();
@@ -91,11 +93,11 @@ public class ActionService {
                     }
                     break;
                 case "city":
-                    if (actionStack.peek().getOperation() == "create"){
+                    if (actionStack.peek().getOperation().equals("create")){
                         cityService.deleteCityById((Integer) actionStack.peek().getParameters().get("id"));
                         redoActionStack.push(actionStack.peek());
                         actionStack.pop();
-                    } else if (actionStack.peek().getOperation() == "delete"){
+                    } else if (actionStack.peek().getOperation().equals("delete")){
                         cityService.addCity(setCityFromActionStack());
                         redoActionStack.push(actionStack.peek());
                         actionStack.pop();
@@ -120,11 +122,11 @@ public class ActionService {
 
             switch (redoActionStack.peek().getObjectName()){
                 case "aircraft" :
-                    if (redoActionStack.peek().getOperation() == "create"){
+                    if (redoActionStack.peek().getOperation().equals("create")){
                         aircraftService.addAircraft(setAircraftFromRedoStack());
                         actionStack.push(redoActionStack.peek());
                         redoActionStack.pop();
-                    } else if (redoActionStack.peek().getOperation() == "delete"){
+                    } else if (redoActionStack.peek().getOperation().equals("delete")){
                         aircraftService.deleteAircraftById((Integer) redoActionStack.peek().getParameters().get("id"));
                         actionStack.push(redoActionStack.peek());
                         redoActionStack.pop();
@@ -132,12 +134,12 @@ public class ActionService {
                     }
                     break;
                 case "airport":
-                    if (redoActionStack.peek().getOperation() == "create"){
+                    if (redoActionStack.peek().getOperation().equals("create")){
                         airportService.addAirport(setAirportFromRedoStack());
                         actionStack.push(redoActionStack.peek());
                         redoActionStack.pop();
                         break;
-                    } else if (redoActionStack.peek().getOperation() == "delete"){
+                    } else if (redoActionStack.peek().getOperation().equals("delete")){
                         airportService.deleteAirportById((Integer) redoActionStack.peek().getParameters().get("id"));
                         actionStack.push(redoActionStack.peek());
                         redoActionStack.pop();
@@ -145,22 +147,22 @@ public class ActionService {
                     }
                     break;
                 case "passenger":
-                    if (redoActionStack.peek().getOperation() == "create"){
+                    if (redoActionStack.peek().getOperation().equals("create")){
                         passengerService.addPassenger(setPassengerFromRedoStack());
                         actionStack.push(redoActionStack.peek());
                         redoActionStack.pop();
-                    } else if (redoActionStack.peek().getOperation() == "delete"){
+                    } else if (redoActionStack.peek().getOperation().equals("delete")){
                         passengerService.deletePassengerById((Integer) redoActionStack.peek().getParameters().get("id"));
                         actionStack.push(redoActionStack.peek());
                         redoActionStack.pop();
                     }
                     break;
                 case "city":
-                    if (redoActionStack.peek().getOperation() == "create"){
+                    if (redoActionStack.peek().getOperation().equals("create")){
                         cityService.addCity(setCityFromRedoStack());
                         actionStack.push(redoActionStack.peek());
                         redoActionStack.pop();
-                    } else if (redoActionStack.peek().getOperation() == "delete"){
+                    } else if (redoActionStack.peek().getOperation().equals("delete")){
                         cityService.deleteCityById((Integer) redoActionStack.peek().getParameters().get("id"));
                         actionStack.push(redoActionStack.peek());
                         redoActionStack.pop();

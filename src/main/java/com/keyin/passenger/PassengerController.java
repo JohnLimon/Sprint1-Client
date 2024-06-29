@@ -5,7 +5,6 @@ import com.keyin.action.ActionService;
 import com.keyin.aircraft.Aircraft;
 import com.keyin.airport.Airport;
 import com.keyin.history.HistoryService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -15,12 +14,15 @@ import java.util.Map;
 @RestController
 @CrossOrigin
 public class PassengerController {
-    @Autowired
-    private PassengerService passengerService;
-    @Autowired
-    private HistoryService historyService;
-    @Autowired
-    private ActionService actionService;
+    private final PassengerService passengerService;
+    private final HistoryService historyService;
+    private final ActionService actionService;
+
+    public PassengerController(PassengerService passengerService, HistoryService historyService, ActionService actionService) {
+        this.passengerService = passengerService;
+        this.historyService = historyService;
+        this.actionService = actionService;
+    }
 
     @GetMapping("/passenger")
     public List<Passenger> getAllPassenger() {
@@ -30,7 +32,7 @@ public class PassengerController {
 
     @GetMapping("/passenger/{id}")
     public Passenger getPassengerById(@PathVariable int id) {
-        String url = "/passenger/" + String.valueOf(id);
+        String url = "/passenger/" + id;
         historyService.addToHistory("getPassengerById()", url, LocalDateTime.now());
         return passengerService.getPassengerById(id);
     }
@@ -57,11 +59,9 @@ public class PassengerController {
                 passengerForAction = passenger;
             }
         }
-        if (passengerForAction != null) {
-            actionService.addAction("passenger", "delete", Map.of("id", passengerForAction.getId(), "firstname",  passengerForAction.getFirstname(), "lastName", passengerForAction.getLastName(), "phoneNumber", passengerForAction.getPhoneNumber(), "aircraftIdsList", passengerForAction.getAircraftIdsList(), "airportIdsList", passengerForAction.getAirportIdsList()));
-        }
+        actionService.addAction("passenger", "delete", Map.of("id", passengerForAction.getId(), "firstname", passengerForAction.getFirstname(), "lastName", passengerForAction.getLastName(), "phoneNumber", passengerForAction.getPhoneNumber(), "aircraftIdsList", passengerForAction.getAircraftIdsList(), "airportIdsList", passengerForAction.getAirportIdsList()));
 
-        String url = "/passenger/deletePassenger/" + String.valueOf(id);
+        String url = "/passenger/deletePassenger/" + id;
         historyService.addToHistory("deletePassenger()", url, LocalDateTime.now());
         return passengerService.deletePassengerById(id);
     }
@@ -75,25 +75,23 @@ public class PassengerController {
                 passengerForAction = passengerToFind;
             }
         }
-        if (passengerForAction != null) {
-            actionService.addAction("passenger", "update", Map.of("id", passengerForAction.getId(), "firstname",  passengerForAction.getFirstname(), "lastName", passengerForAction.getLastName(), "phoneNumber", passengerForAction.getPhoneNumber(), "aircraftIdsList", passengerForAction.getAircraftIdsList(), "airportIdsList", passengerForAction.getAirportIdsList()));
-        }
+        actionService.addAction("passenger", "update", Map.of("id", passengerForAction.getId(), "firstname", passengerForAction.getFirstname(), "lastName", passengerForAction.getLastName(), "phoneNumber", passengerForAction.getPhoneNumber(), "aircraftIdsList", passengerForAction.getAircraftIdsList(), "airportIdsList", passengerForAction.getAirportIdsList()));
 
-        String url = "/passenger/updatePassenger/" + String.valueOf(id);
+        String url = "/passenger/updatePassenger/" + id;
         historyService.addToHistory("updatePassenger()", url, LocalDateTime.now());
         return passengerService.updatePassenger(id, passenger);
     }
 
     @GetMapping("/passenger/{id}/getAircraft")
     public List<Aircraft> getAircraftPassengerTravelledOn(@PathVariable int id) {
-        String url = "/passenger/"  + String.valueOf(id) + "/getAircraft";
+        String url = "/passenger/"  + id + "/getAircraft";
         historyService.addToHistory("getAircraft()", url, LocalDateTime.now());
         return passengerService.getAircraft(id);
     }
 
     @GetMapping("/passenger/{id}/getAirport")
     public List<Airport> getAirportPassengerVisited(@PathVariable int id) {
-        String url = "/passenger/"  + String.valueOf(id) + "/getAirport";
+        String url = "/passenger/"  + id + "/getAirport";
         historyService.addToHistory("getAirport()", url, LocalDateTime.now());
         return passengerService.getAirports(id);
     }

@@ -10,14 +10,14 @@ import java.util.List;
 @Service
 public class AircraftService {
 
-    private List<Aircraft> aircraftList = new ArrayList<>();
+    private final List<Aircraft> aircraftList = new ArrayList<>();
 
     public AircraftService() {
        populateList();
     }
 
     public void populateList() {
-        List<Airport> allAirports = new ArrayList<>();
+        List<Airport> allAirports;
         AirportService airportService = new AirportService();
         allAirports = airportService.getAllAirport();
 
@@ -135,9 +135,8 @@ public class AircraftService {
         return foundList;
     }
 
-    public Aircraft addAircraft(Aircraft aircraft){
+    public void addAircraft(Aircraft aircraft){
         aircraftList.add(aircraft);
-        return aircraft;
     }
 
     public List<Aircraft> updateAircraft(int id, Aircraft aircraftToChange){
@@ -177,7 +176,7 @@ public class AircraftService {
     }
 
     public Aircraft addToAllowedList(String aircraftToAdd, String airportToAdd){
-        List<Airport> allAirports = new ArrayList<>();
+        List<Airport> allAirports;
         AirportService airportService = new AirportService();
         allAirports = airportService.getAllAirport();
 
@@ -199,7 +198,6 @@ public class AircraftService {
                 String idToString = String.valueOf(aircraft.getId());
                 if (idToString.equals(aircraftToAdd) || aircraft.getType().equals(aircraftToAdd)) {
                     aircraft.addAllowedAirport(foundAirport);
-                    foundAircraft = aircraft;
                     return aircraft;
                 }
             }
@@ -211,7 +209,7 @@ public class AircraftService {
     }
 
     public Aircraft removeFromAllowedList(String aircraftSelected, String airportToRemove) {
-        List<Airport> allAirports = new ArrayList<>();
+        List<Airport> allAirports;
         AirportService airportService = new AirportService();
         allAirports = airportService.getAllAirport();
 
@@ -234,7 +232,6 @@ public class AircraftService {
                 String idToString = String.valueOf(aircraft.getId());
                 if (idToString.equals(aircraftSelected) || aircraft.getType().equals(aircraftSelected)) {
                     aircraft.removeAllowedAirport(foundAirport);
-                    foundAircraft = aircraft;
                     return aircraft;
                 }
             }

@@ -1,9 +1,7 @@
 package com.keyin.aircraft;
 
 import com.keyin.action.ActionService;
-import com.keyin.airport.Airport;
 import com.keyin.history.HistoryService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -13,12 +11,15 @@ import java.util.Map;
 @RestController
 @CrossOrigin
 public class AircraftController {
-    @Autowired
-    private AircraftService aircraftService;
-    @Autowired
-    private HistoryService historyService;
-    @Autowired
-    private ActionService actionService;
+    private final AircraftService aircraftService;
+    private final HistoryService historyService;
+    private final ActionService actionService;
+
+    public AircraftController(AircraftService aircraftService, HistoryService historyService, ActionService actionService) {
+        this.aircraftService = aircraftService;
+        this.historyService = historyService;
+        this.actionService = actionService;
+    }
 
     @GetMapping("/aircraft")
     public List<Aircraft> getAllAircraft() {
@@ -28,7 +29,7 @@ public class AircraftController {
 
     @GetMapping("/aircraft/{id}")
     public Aircraft getAircraftById(@PathVariable int id) {
-        String url = "/aircraft/" + String.valueOf(id);
+        String url = "/aircraft/" + id;
         historyService.addToHistory("getAircraftById()", url, LocalDateTime.now());
         return aircraftService.getAircraftById(id);
     }
@@ -55,11 +56,9 @@ public class AircraftController {
                 aircraftForAction = aircraft;
             }
         }
-        if (aircraftForAction != null) {
-            actionService.addAction("aircraft", "delete", Map.of("id", aircraftForAction.getId(), "type", aircraftForAction.getType(),"airlineName", aircraftForAction.getAirlineName(), "numberOfPassengers", aircraftForAction.getNumberOfPassengers(), "allowedAirportList", aircraftForAction.getAllowedAirportList()));
-        }
+        actionService.addAction("aircraft", "delete", Map.of("id", aircraftForAction.getId(), "type", aircraftForAction.getType(), "airlineName", aircraftForAction.getAirlineName(), "numberOfPassengers", aircraftForAction.getNumberOfPassengers(), "allowedAirportList", aircraftForAction.getAllowedAirportList()));
 
-        String url = "/aircraft/deleteAircraft/" + String.valueOf(id);
+        String url = "/aircraft/deleteAircraft/" + id;
         historyService.addToHistory("deleteAircraft()", url, LocalDateTime.now());
         return aircraftService.deleteAircraftById(id);
     }
@@ -73,11 +72,9 @@ public class AircraftController {
                 aircraftForAction = aircraftToFind;
             }
         }
-        if (aircraftForAction != null) {
-            actionService.addAction("aircraft", "update",Map.of("id", aircraftForAction.getId(), "type", aircraftForAction.getType(),"airlineName", aircraftForAction.getAirlineName(), "numberOfPassengers", aircraftForAction.getNumberOfPassengers(), "allowedAirportList", aircraftForAction.getAllowedAirportList()));
-        }
+        actionService.addAction("aircraft", "update", Map.of("id", aircraftForAction.getId(), "type", aircraftForAction.getType(), "airlineName", aircraftForAction.getAirlineName(), "numberOfPassengers", aircraftForAction.getNumberOfPassengers(), "allowedAirportList", aircraftForAction.getAllowedAirportList()));
 
-        String url = "/aircraft/updateAircraft/" + String.valueOf(id);
+        String url = "/aircraft/updateAircraft/" + id;
         historyService.addToHistory("updateAircraft()", url, LocalDateTime.now());
         return aircraftService.updateAircraft(id, aircraft);
     }

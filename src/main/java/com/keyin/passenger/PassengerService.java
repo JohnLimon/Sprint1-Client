@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 public class PassengerService {
-    private List<Passenger> passengerList = new ArrayList<>();
+    private final List<Passenger> passengerList = new ArrayList<>();
 
     public PassengerService() {
         populate();
@@ -129,9 +129,8 @@ public class PassengerService {
         return foundList;
     }
 
-    public Passenger addPassenger(Passenger passenger){
+    public void addPassenger(Passenger passenger){
         passengerList.add(passenger);
-        return passenger;
     }
 
     public List<Passenger> updatePassenger(int id, Passenger passengerToChange){

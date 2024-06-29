@@ -2,7 +2,6 @@ package com.keyin.airport;
 
 import com.keyin.action.ActionService;
 import com.keyin.history.HistoryService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -12,12 +11,15 @@ import java.util.Map;
 @RestController
 @CrossOrigin
 public class AirportController {
-    @Autowired
-    private AirportService airportService;
-    @Autowired
-    private HistoryService historyService;
-    @Autowired
-    private ActionService actionService;
+    private final AirportService airportService;
+    private final HistoryService historyService;
+    private final ActionService actionService;
+
+    public AirportController(AirportService airportService, HistoryService historyService, ActionService actionService) {
+        this.airportService = airportService;
+        this.historyService = historyService;
+        this.actionService = actionService;
+    }
 
     @GetMapping("/airport")
     public List<Airport> getAllAirport() {
@@ -27,7 +29,7 @@ public class AirportController {
 
     @GetMapping("/airport/{id}")
     public Airport getAirportById(@PathVariable int id) {
-        String url = "/airport/" + String.valueOf(id);
+        String url = "/airport/" + id;
         historyService.addToHistory("getAirportById()", url, LocalDateTime.now());
         return airportService.getAirportById(id);
     }
@@ -54,11 +56,9 @@ public class AirportController {
                 airportForAction = airport;
             }
         }
-        if (airportForAction != null) {
-            actionService.addAction("airport", "delete", Map.of("id", airportForAction.getId(), "name",  airportForAction.getName(), "areaCode", airportForAction.getAreaCode(), "cityId", airportForAction.getCityId()));
-        }
+        actionService.addAction("airport", "delete", Map.of("id", airportForAction.getId(), "name", airportForAction.getName(), "areaCode", airportForAction.getAreaCode(), "cityId", airportForAction.getCityId()));
 
-        String url = "/airport/deleteAirport/" + String.valueOf(id);
+        String url = "/airport/deleteAirport/" + id;
         historyService.addToHistory("deleteAirport()", url, LocalDateTime.now());
         return airportService.deleteAirportById(id);
     }
@@ -72,11 +72,9 @@ public class AirportController {
                 airportForAction = airportToFind;
             }
         }
-        if (airportForAction != null) {
-            actionService.addAction("airport", "update", Map.of("id", airportForAction.getId(), "name",  airportForAction.getName(), "areaCode", airportForAction.getAreaCode(), "cityId", airportForAction.getCityId()));
-        }
+        actionService.addAction("airport", "update", Map.of("id", airportForAction.getId(), "name", airportForAction.getName(), "areaCode", airportForAction.getAreaCode(), "cityId", airportForAction.getCityId()));
 
-        String url = "/airport/updateAirport/" + String.valueOf(id);
+        String url = "/airport/updateAirport/" + id;
         historyService.addToHistory("updateAirport()", url, LocalDateTime.now());
         return airportService.updateAirport(id, airport);
     }
@@ -84,7 +82,7 @@ public class AirportController {
     //relationship
     @GetMapping("/airport/getByCityId/{id}")
     public List<Airport> airportByCityId(@PathVariable int id) {
-        String url = "/airport/getByCity/" + String.valueOf(id);
+        String url = "/airport/getByCity/" + id;
         historyService.addToHistory("getAirportByCityId()", url, LocalDateTime.now());
         return airportService.airportByCityId(id);
     }
