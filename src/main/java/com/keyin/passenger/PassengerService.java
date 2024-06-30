@@ -20,9 +20,9 @@ public class PassengerService {
     public void populate(){
         Passenger passenger1 = new Passenger();
         passenger1.setId(1);
-        passenger1.setFirstname("Kyle");
-        passenger1.setLastName("Snow");
-        passenger1.setPhoneNumber("(709) 683-4444");
+        passenger1.setFirstname("Jelliebeth");
+        passenger1.setLastName("Sevilla");
+        passenger1.setPhoneNumber("(709) 123-4567");
         passenger1.addToAircraftIdsList(1);
         passenger1.addToAirportIdsList(1);
         passenger1.addToAirportIdsList(2);
@@ -30,9 +30,9 @@ public class PassengerService {
 
         Passenger passenger2 = new Passenger();
         passenger2 .setId(2);
-        passenger2 .setFirstname("Ken");
-        passenger2 .setLastName("Chafe");
-        passenger2 .setPhoneNumber("(709) 683-4532");
+        passenger2 .setFirstname("John");
+        passenger2 .setLastName("Limon");
+        passenger2 .setPhoneNumber("(709) 987-6543");
         passenger2.addToAircraftIdsList(1);
         passenger2.addToAircraftIdsList(2);
         passenger2.addToAirportIdsList(2);
@@ -41,16 +41,16 @@ public class PassengerService {
 
         Passenger passenger3 = new Passenger();
         passenger3.setId(3);
-        passenger3.setFirstname("Tyler");
-        passenger3.setLastName("Power");
-        passenger3.setPhoneNumber("(709) 683-9911");
+        passenger3.setFirstname("Jhailla");
+        passenger3.setLastName("Nunez");
+        passenger3.setPhoneNumber("(709) 222-3333");
         passengerList.add(passenger3);
 
         Passenger passenger4 = new Passenger();
         passenger4.setId(4);
-        passenger4.setFirstname("Kayleigh");
-        passenger4.setLastName("McGrath");
-        passenger4.setPhoneNumber("(709) 683-1231");
+        passenger4.setFirstname("Jhaille");
+        passenger4.setLastName("Nunez");
+        passenger4.setPhoneNumber("(709) 444-5555");
         passenger4.addToAircraftIdsList(4);
         passenger4.addToAircraftIdsList(5);
         passenger4.addToAirportIdsList(4);
@@ -59,9 +59,9 @@ public class PassengerService {
 
         Passenger passenger5 = new Passenger();
         passenger5.setId(5);
-        passenger5.setFirstname("John");
-        passenger5.setLastName("Doe");
-        passenger5.setPhoneNumber("(709) 555-6675");
+        passenger5.setFirstname("Jhann");
+        passenger5.setLastName("Vargas");
+        passenger5.setPhoneNumber("(709) 777-6666");
         passenger5.addToAircraftIdsList(7);
         passenger5.addToAircraftIdsList(8);
         passenger5.addToAirportIdsList(8);
@@ -70,9 +70,9 @@ public class PassengerService {
 
         Passenger passenger6 = new Passenger();
         passenger6.setId(6);
-        passenger6.setFirstname("Sarah");
-        passenger6.setLastName("Dove");
-        passenger6.setPhoneNumber("(709) 786-5565");
+        passenger6.setFirstname("Jhanna");
+        passenger6.setLastName("Vargas");
+        passenger6.setPhoneNumber("(709) 111-2222");
         passenger6.addToAircraftIdsList(3);
         passenger6.addToAircraftIdsList(2);
         passenger6.addToAirportIdsList(1);
@@ -82,18 +82,18 @@ public class PassengerService {
 
         Passenger passenger7 = new Passenger();
         passenger7.setId(7);
-        passenger7.setFirstname("Sarah");
-        passenger7.setLastName("Dove");
-        passenger7.setPhoneNumber("(709) 786-5565");
+        passenger7.setFirstname("Zoie");
+        passenger7.setLastName("Obra");
+        passenger7.setPhoneNumber("(709) 999-8888");
         passenger7.addToAircraftIdsList(1);
         passenger7.addToAirportIdsList(1);
         passengerList.add(passenger7);
 
         Passenger passenger8 = new Passenger();
         passenger8.setId(8);
-        passenger8.setFirstname("Sarah");
-        passenger8.setLastName("Dove");
-        passenger8.setPhoneNumber("(709) 786-5565");
+        passenger8.setFirstname("Zeia");
+        passenger8.setLastName("Obra");
+        passenger8.setPhoneNumber("(709) 444-8888");
         passengerList.add(passenger8);
     }
 
