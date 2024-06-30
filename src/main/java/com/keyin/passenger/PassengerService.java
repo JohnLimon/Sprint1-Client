@@ -171,7 +171,7 @@ public class PassengerService {
     }
 
     public List<Aircraft> getAircraft(int id){
-        List<Aircraft> allAircraftList = new ArrayList<>();
+        List<Aircraft> allAircraftList;
         AircraftService aircraftService = new AircraftService();
         allAircraftList = aircraftService.getAllAircraft();
 
@@ -197,7 +197,7 @@ public class PassengerService {
     }
 
     public List<Airport> getAirports(int id) {
-        List<Airport> allAirportsList = new ArrayList<>();
+        List<Airport> allAirportsList;
         AirportService airportService = new AirportService();
         allAirportsList = airportService.getAllAirport();
 
