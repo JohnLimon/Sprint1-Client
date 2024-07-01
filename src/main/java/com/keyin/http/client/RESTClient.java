@@ -66,7 +66,6 @@ public class RESTClient {
         return aircraft;
     }
 
-    //------------------------------------------------------------------------------------------------------------------
     // Airport methods
     public List<Airport> getAllAirport(){
         List<Airport> airportList = new ArrayList<>();
