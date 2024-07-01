@@ -23,7 +23,7 @@ public class AircraftService {
 
         Aircraft aircraft1 = new Aircraft();
         aircraft1.setId(1);
-        aircraft1.setType("Boeing 737");
+        aircraft1.setType("Boeing 222");
         aircraft1.setAirlineName("Air Canada");
         aircraft1.setNumberOfPassengers(100);
         aircraft1.addAllowedAirport(allAirports.get(0));
@@ -32,16 +32,16 @@ public class AircraftService {
 
         Aircraft aircraft2 = new Aircraft();
         aircraft2.setId(2);
-        aircraft2.setType("Boeing 101");
-        aircraft2.setAirlineName("West Jet");
-        aircraft2.setNumberOfPassengers(70);
+        aircraft2.setType("Boeing 333");
+        aircraft2.setAirlineName("WestJet");
+        aircraft2.setNumberOfPassengers(150);
         aircraftList.add(aircraft2);
 
         Aircraft aircraft3 = new Aircraft();
         aircraft3.setId(3);
-        aircraft3.setType("Boeing 408");
+        aircraft3.setType("Boeing 444");
         aircraft3.setAirlineName("Air Canada");
-        aircraft3.setNumberOfPassengers(70);
+        aircraft3.setNumberOfPassengers(130);
         aircraft3.addAllowedAirport(allAirports.get(2));
         aircraft3.addAllowedAirport(allAirports.get(3));
         aircraft3.addAllowedAirport(allAirports.get(4));
@@ -49,18 +49,18 @@ public class AircraftService {
 
         Aircraft aircraft4 = new Aircraft();
         aircraft4.setId(4);
-        aircraft4.setType("Boeing 709");
-        aircraft4.setAirlineName("West Jet");
-        aircraft4.setNumberOfPassengers(300);
+        aircraft4.setType("Boeing 555");
+        aircraft4.setAirlineName("WestJet");
+        aircraft4.setNumberOfPassengers(250);
         aircraft4.addAllowedAirport(allAirports.get(5));
         aircraft4.addAllowedAirport(allAirports.get(6));
         aircraftList.add(aircraft4);
 
         Aircraft aircraft5 = new Aircraft();
         aircraft5.setId(5);
-        aircraft5.setType("Boeing 402");
-        aircraft5.setAirlineName("East Jet");
-        aircraft5.setNumberOfPassengers(200);
+        aircraft5.setType("Boeing 777");
+        aircraft5.setAirlineName("WestJet");
+        aircraft5.setNumberOfPassengers(280);
         aircraft5.addAllowedAirport(allAirports.get(5));
         aircraft5.addAllowedAirport(allAirports.get(6));
         aircraft5.addAllowedAirport(allAirports.get(7));
@@ -69,37 +69,43 @@ public class AircraftService {
 
         Aircraft aircraft6 = new Aircraft();
         aircraft6.setId(6);
-        aircraft6.setType("Comet");
-        aircraft6.setAirlineName("Private Owned");
-        aircraft6.setNumberOfPassengers(6);
+        aircraft6.setType("Airbus 888");
+        aircraft6.setAirlineName("PAL Airlines");
+        aircraft6.setNumberOfPassengers(50);
         aircraftList.add(aircraft6);
 
         Aircraft aircraft7 = new Aircraft();
         aircraft7.setId(7);
-        aircraft7.setType("BlackBird");
-        aircraft7.setAirlineName("Grey Sky");
-        aircraft7.setNumberOfPassengers(100);
+        aircraft7.setType("Airbus 999");
+        aircraft7.setAirlineName("PAL Airlines");
+        aircraft7.setNumberOfPassengers(30);
         aircraft7.addAllowedAirport(allAirports.get(5));
         aircraftList.add(aircraft7);
 
         Aircraft aircraft8 = new Aircraft();
         aircraft8.setId(8);
-        aircraft8.setType("AirBus 777");
+        aircraft8.setType("Airbus 111");
         aircraft8.setAirlineName("Air Canada");
-        aircraft8.setNumberOfPassengers(190);
+        aircraft8.setNumberOfPassengers(170);
         aircraft8.addAllowedAirport(allAirports.get(9));
         aircraft8.addAllowedAirport(allAirports.get(10));
-        aircraft8.addAllowedAirport(allAirports.get(11));
-        aircraft8.addAllowedAirport(allAirports.get(12));
+        aircraft8.addAllowedAirport(allAirports.get(6));
+        aircraft8.addAllowedAirport(allAirports.get(8));
         aircraftList.add(aircraft8);
 
         Aircraft aircraft9 = new Aircraft();
         aircraft9.setId(9);
-        aircraft9.setType("AirBus 434");
-        aircraft9.setAirlineName("West Jet");
-        aircraft9.setNumberOfPassengers(100);
+        aircraft9.setType("Airbus 606");
+        aircraft9.setAirlineName("WestJet");
+        aircraft9.setNumberOfPassengers(90);
         aircraftList.add(aircraft9);
 
+        Aircraft aircraft10 = new Aircraft();
+        aircraft9.setId(10);
+        aircraft9.setType("Airbus 909");
+        aircraft9.setAirlineName("PAL Airlines");
+        aircraft9.setNumberOfPassengers(150);
+        aircraftList.add(aircraft10);
 
     }
 

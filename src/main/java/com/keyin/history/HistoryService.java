@@ -27,7 +27,7 @@ public class HistoryService {
         }
     }
 
-    // what if stack is empty ??
+    // what if stack is empty
     public List<History> getAllHistory() {
         List<History> historyList = new ArrayList<>();
         historyList.addAll(historyStack);
